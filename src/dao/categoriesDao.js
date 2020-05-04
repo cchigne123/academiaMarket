@@ -5,13 +5,14 @@ const db = require('./config');
 module.exports = class CategoriesDao {
     getAllCategories() {
         return new Promise((resolve, reject) => {
-            let categories = []; 
+            let categories = [];
             db.collection('categorias').get().then((snapshot) => {
                 snapshot.forEach((doc) => {
-                    let category = {};
-                    category.imageURI = doc.get('imagen');
-                    category.name = doc.get('nombre');
-                    categories.push(category);
+                    categories.push({
+                        id: doc.id,
+                        imageUri: doc.get('imagen'),
+                        name: doc.get('nombre')
+                    });
                 });
                 resolve(categories);
             });

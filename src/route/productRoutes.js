@@ -4,10 +4,9 @@ const router = express();
 const productsService = require("../service/productService");
 const prodService = new productsService();
 
-router.get("/", (req, res) => {
-    prodService.getAllProducts().then(products => {
-        res.json({ products });
-    });
+router.get("/", async (req, res) => {
+    let products = await prodService.getAllProducts()
+    res.json({ products });
 });
 
 module.exports = router;
